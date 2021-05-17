@@ -15,12 +15,14 @@ class LuaSpanContext {
   //
   // So when the opentracing::SpanContext is referenced we need to hold an
   // std::shared_ptr to the opentracing::Span to ensure that it isn't freed.
-  explicit LuaSpanContext(const std::shared_ptr<const opentracing::Span>& span)
-      : span_{span} {}
+  explicit LuaSpanContext() {}
 
-  explicit LuaSpanContext(
+  void SetSpan(const std::shared_ptr<const opentracing::Span>& span)
+      { span_ = span; }
+
+  void SetSpanContext(
       std::unique_ptr<const opentracing::SpanContext>&& span_context)
-      : span_context_{std::move(span_context)} {}
+      { span_context_ = std::move(span_context); }
 
   static const LuaClassDescription description;
 

@@ -104,8 +104,10 @@ int LuaSpan::context(lua_State* L) noexcept {
   auto userdata = static_cast<LuaSpanContext**>(
       lua_newuserdata(L, sizeof(LuaSpanContext*)));
   try {
+    auto p = new LuaSpanContext{};
+    p->SetSpan(span->span_);
     auto lua_span_context =
-        std::unique_ptr<LuaSpanContext>{new LuaSpanContext{span->span_}};
+        std::unique_ptr<LuaSpanContext>{p};
     *userdata = lua_span_context.release();
 
     luaL_getmetatable(L, LuaSpanContext::description.metatable);
