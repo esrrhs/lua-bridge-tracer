@@ -376,7 +376,7 @@ int LuaTracer::binary_extract(lua_State* L) noexcept {
       return 1;
     }
 
-    *userdata = new LuaSpanContext{std::move(span_context)};
+    *userdata = new LuaSpanContext(std::move(span_context));
     luaL_getmetatable(L, LuaSpanContext::description.metatable);
     lua_setmetatable(L, -2);
 
