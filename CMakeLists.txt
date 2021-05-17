@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.1)
 
 project(lua-bridge-tracer)
 
-find_package(Lua 5.1)
+find_package(Lua 5.3)
 find_package(OpenTracing 1.6.0)
+
+SET(CMAKE_CXX_FLAGS "-g3")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -23,7 +26,7 @@ add_library(opentracing_bridge_tracer SHARED src/module.cpp
                                              src/lua_span_context.cpp
                                              src/lua_span.cpp)
 
-target_link_libraries(opentracing_bridge_tracer OpenTracing::opentracing)
+target_link_libraries(opentracing_bridge_tracer OpenTracing::opentracing-static)
 set_target_properties(opentracing_bridge_tracer PROPERTIES PREFIX "")
 set_target_properties(opentracing_bridge_tracer PROPERTIES SUFFIX ".so")
 
