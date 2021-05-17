@@ -26,7 +26,7 @@ add_library(opentracing_bridge_tracer SHARED src/module.cpp
                                              src/lua_span_context.cpp
                                              src/lua_span.cpp)
 
-target_link_libraries(opentracing_bridge_tracer OpenTracing::opentracing-static rt)
+target_link_libraries(opentracing_bridge_tracer OpenTracing::opentracing-static rt pthread)
 set_target_properties(opentracing_bridge_tracer PROPERTIES PREFIX "")
 set_target_properties(opentracing_bridge_tracer PROPERTIES SUFFIX ".so")
 
